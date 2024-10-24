@@ -49,19 +49,19 @@ const TextLayer = ({ scrollContainerRef }) => {
     <div className="top-0 z-10 left-16 w-full bg-transparent p-4">
       <h1
         ref={firstHeadingRef}
-        className="first-heading text-slate-100 w-[40vw] text-6xl fixed opacity-1 top-40 left-10"
+        className="first-heading mono-text text-slate-100 w-[40vw] text-5xl fixed opacity-1 top-40 left-10"
       >
-        Get ready to reveal the <span className="glitch-text">beast..</span>
+        Get ready to reveal the <span className=" font-black">beast..</span>
       </h1>
       <h1
         ref={secondHeadingRef}
-        className="second-heading text-slate-100 w-[40vw] text-6xl fixed top-[50vh] right-10" // Appears halfway through the scroll
+        className="second-heading text-slate-100 w-[40vw] text-5xl fixed top-[50vh] right-10" // Appears halfway through the scroll
       >
         Experience the thrill of the{" "}
-        <span className="glitch-text">ultimate driving machine</span>
+        <span className="font-black">ultimate driving machine</span>
       </h1>
       <div
-        className="text-xl fixed bottom-10 left-[45%] w-fit text-white flex flex-col items-center justify-center"
+        className="text-xl font-black fixed bottom-10 left-[45%] w-fit text-white flex flex-col items-center justify-center"
       >
         <p>Scroll to Reveal</p>
         <motion.div

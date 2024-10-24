@@ -8,7 +8,7 @@ function App() {
   
   return (
     <>
-      <main>
+      <main className="orbitron">
         <Navbar />
         <Landing />
         {/* <TextLayer/> */}

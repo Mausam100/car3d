@@ -65,7 +65,7 @@ const CanvasContainer = () => {
         alloyColor={alloyColor}
         orbitControlsEnabled={orbitControlsEnabled}
       />
-      <div className="absolute bottom-10 left-10 space-x-4">
+      <div className="absolute font-mono bottom-10 left-10 space-x-4">
         {showColorPicker ? (
           <>
             <SwatchesPicker color={paintColor} onChange={handlePaintChange} />
