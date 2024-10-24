@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
-export default function Model() {
+export default function Model({ paintColor, alloyColor }) {
   const { nodes, materials } = useGLTF("/datsun-transformed.glb");
 
   return (
@@ -13,7 +13,7 @@ export default function Model() {
         receiveShadow
         geometry={nodes.Cylinder007_alloy_0_1.geometry}
         material={materials.alloy}
-        material-color={"grey"}
+        material-color={alloyColor}
       />
       {/* Headlights */}
       <mesh
@@ -77,7 +77,7 @@ export default function Model() {
         receiveShadow
         geometry={nodes.Cylinder007_alloy_0_10.geometry}
         material={materials.paint}
-        material-color={"goldenrod"}
+        material-color={paintColor}
       />
       {/* Red Glass */}
       <mesh

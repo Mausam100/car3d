@@ -11,7 +11,7 @@ function App() {
       <main>
         <Navbar />
         <Landing />
-        <TextLayer/>
+        {/* <TextLayer/> */}
         <CanvasContainer />
       </main>
     </>
