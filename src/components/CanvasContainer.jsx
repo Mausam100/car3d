@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { SwatchesPicker } from "react-color";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,39 +11,38 @@ const CanvasContainer = () => {
   const [cameraPosition, setCameraPosition] = useState([4, 1, 4.5]);
   const [lookAt, setLookAt] = useState([0, 0, 0]);
   const [fov, setFov] = useState(30);
-  const [paintColor, setPaintColor] = useState("goldenrod");
+  const [paintColor, setPaintColor] = useState("#820014");
   const [showColorPicker, setShowColorPicker] = useState(false);
-  const [alloyColor, setAlloyColor] = useState("grey"); // Default alloy color
+  const [alloyColor, setAlloyColor] = useState("grey");
   const [showAlloyPicker, setShowAlloyPicker] = useState(false);
+  const [orbitControlsEnabled, setOrbitControlsEnabled] = useState(false);
 
-  const handleCameraChange = (position, fov) => {
+  // Update camera position and FOV
+  const updateCamera = (position, fov) => {
     setCameraPosition(position);
     setLookAt([0, 0, 0]);
     setFov(fov);
   };
 
-  const handlePaintChange = (color) => {
-    setPaintColor(color);
-    setShowColorPicker(false); // Optionally hide color picker after selection
+  // Handle color change for paint
+  const handlePaintChange = (color) => setPaintColor(color.hex);
+
+  // Handle color change for alloys
+  const handleAlloyChange = (color) => setAlloyColor(color.hex);
+
+  // Toggle color pickers visibility
+  const togglePicker = (picker) => {
+    setShowColorPicker(picker === "paint" ? !showColorPicker : false);
+    setShowAlloyPicker(picker === "alloy" ? !showAlloyPicker : false);
   };
 
-  const toggleColorPicker = () => {
-    setShowColorPicker(!showColorPicker); // Toggle visibility
-  };
-
+  // Handle back button to reset the UI and camera
   const handleBack = () => {
-    setShowColorPicker(false); // Hide color picker and show all buttons
+    togglePicker(); // Hide all pickers
+    updateCamera([4, 1, 4.5], 35); // Reset camera
   };
 
-  const handleAlloyChange = (color) => {
-    setAlloyColor(color);
-    setShowAlloyPicker(false); // Hide color picker after selection
-  };
-
-  const toggleAlloyPicker = () => {
-    setShowAlloyPicker(!showAlloyPicker); // Toggle visibility of alloy color picker
-  };
-
+  // Scroll animation effect for opacity
   useGSAP(() => {
     gsap.to(".cardiv", {
       opacity: 1,
@@ -52,25 +51,26 @@ const CanvasContainer = () => {
         start: "bottom bottom",
         end: "bottom bottom",
         scrub: 2,
-        // markers: true,
       },
     });
   });
-  
+
   return (
     <main className="cardiv bg-cover bg-center items-center w-full h-screen fixed top-0 left-0 opacity-0 bg-[#282222]">
-      <Canvas cameraPosition={cameraPosition} lookAt={lookAt} fov={fov} paintColor={paintColor} alloyColor={alloyColor} />
+      <Canvas
+        cameraPosition={cameraPosition}
+        lookAt={lookAt}
+        fov={fov}
+        paintColor={paintColor}
+        alloyColor={alloyColor}
+        orbitControlsEnabled={orbitControlsEnabled}
+      />
       <div className="absolute bottom-10 left-10 space-x-4">
         {showColorPicker ? (
           <>
-            <input
-              type="color"
-              value={paintColor}
-              onChange={(e) => handlePaintChange(e.target.value)}
-              className="w-10 h-10"
-            />
+            <SwatchesPicker color={paintColor} onChange={handlePaintChange} />
             <button
-              className="bg-red-500 text-white px-4 py-2 rounded"
+              className="bg-zinc-700 text-white px-4 py-2 rounded"
               onClick={handleBack}
             >
               Back
@@ -78,14 +78,9 @@ const CanvasContainer = () => {
           </>
         ) : showAlloyPicker ? (
           <>
-            <input
-              type="color"
-              value={alloyColor}
-              onChange={(e) => handleAlloyChange(e.target.value)}
-              className="w-10 h-10"
-            />
+            <SwatchesPicker color={alloyColor} onChange={handleAlloyChange} />
             <button
-              className="bg-red-500 text-white px-4 py-2 rounded"
+              className="bg-zinc-700 text-white px-4 py-2 rounded"
               onClick={handleBack}
             >
               Back
@@ -94,28 +89,34 @@ const CanvasContainer = () => {
         ) : (
           <>
             <button
-              className="bg-blue-500 text-white px-4 py-2 rounded"
-              onClick={()=>{
-                handleCameraChange([4, 1.5, 0], 30);
-                toggleColorPicker();
+              className="bg-black text-white px-4 py-2 rounded"
+              onClick={() => {
+                updateCamera([4, 1.5, 0], 30);
+                togglePicker("paint");
               }}
             >
-              Paint
+              Color
             </button>
             <button
-              className="bg-green-500 text-white px-4 py-2 rounded"
-              onClick={()=>{
-                handleCameraChange([6, -0.5, -7], 4);
-                toggleColorPicker();
+              className="bg-black text-white px-4 py-2 rounded"
+              onClick={() => {
+                updateCamera([6, -0.5, -7], 4);
+                togglePicker("alloy");
               }}
             >
               Alloys
             </button>
             <button
-              className="bg-red-500 text-white px-4 py-2 rounded"
-              onClick={() => handleCameraChange([4, 1, 4.5], 35)} 
+              className="bg-black text-white px-4 py-2 rounded"
+              onClick={() => updateCamera([4, 1, 4.5], 35)}
             >
               Back
+            </button>
+            <button
+              className="bg-black text-white px-4 py-2 rounded"
+              onClick={() => setOrbitControlsEnabled(!orbitControlsEnabled)}
+            >
+              {orbitControlsEnabled ? "Disable OrbitControls" : "Enable OrbitControls"}
             </button>
           </>
         )}

@@ -11,7 +11,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 
-const CanvasBox = ({cameraPosition, lookAt, fov, paintColor, alloyColor}) => {
+const CanvasBox = ({cameraPosition, lookAt, fov, paintColor, alloyColor, orbitControlsEnabled}) => {
     
   return (
     <Canvas>
@@ -22,7 +22,11 @@ const CanvasBox = ({cameraPosition, lookAt, fov, paintColor, alloyColor}) => {
         <fog attach="fog" args={["#282222", 5, 15]} />
         <Garage position={[0, -0.55, -3.5]} />
         <Model paintColor={paintColor} alloyColor={alloyColor} />
-        {/* <OrbitControls enableZoom={false} /> */}
+        {orbitControlsEnabled && <OrbitControls 
+       
+         enableZoom={false}
+         enablePan={false}
+         />}
       </Canvas>
   )
 }
