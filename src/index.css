@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300..900&family=Rubik+Glitch&display=swap');
+
+body {
+  font-family: 'Darker Grotesque', sans-serif;  
+}
+
+.glitch-text {
+  font-family: 'Rubik Glitch', cursive;
+  font-weight: 800;
+  color: white;
+}
