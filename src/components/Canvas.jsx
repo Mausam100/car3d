@@ -23,7 +23,6 @@ const CanvasBox = ({cameraPosition, lookAt, fov, paintColor, alloyColor, orbitCo
         <Garage position={[0, -0.55, -3.5]} />
         <Model paintColor={paintColor} alloyColor={alloyColor} />
         {orbitControlsEnabled && <OrbitControls 
-       
          enableZoom={false}
          enablePan={false}
          />}

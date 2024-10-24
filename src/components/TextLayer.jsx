@@ -11,7 +11,11 @@ const TextLayer = ({ scrollContainerRef }) => {
   const secondHeadingRef = useRef(null);
 
   useEffect(() => {
-    if (scrollContainerRef && firstHeadingRef.current && secondHeadingRef.current) {
+    if (
+      scrollContainerRef &&
+      firstHeadingRef.current &&
+      secondHeadingRef.current
+    ) {
       const ctx = gsap.context(() => {
         gsap.to(firstHeadingRef.current, {
           opacity: 0,
@@ -60,9 +64,7 @@ const TextLayer = ({ scrollContainerRef }) => {
         Experience the thrill of the{" "}
         <span className="font-black">ultimate driving machine</span>
       </h1>
-      <div
-        className="text-xl font-black fixed bottom-10 left-[45%] w-fit text-white flex flex-col items-center justify-center"
-      >
+      <div className="text-xl font-black fixed bottom-10 left-[45%] w-fit text-white flex flex-col items-center justify-center">
         <p>Scroll to Reveal</p>
         <motion.div
           animate={{ y: [0, 5, 0] }}
